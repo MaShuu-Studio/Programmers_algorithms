@@ -1,11 +1,20 @@
 using namespace std;
 
+int gcd(int n, int m)
+{
+    while (m != 0)
+    {
+        int tmp = m;
+        m = n % m;
+        n = tmp;
+    }
+    return n;
+}
 long long solution(int w, int h) {
-    long long large = (w > h) ? w : h;
-    long long small = (w > h) ? h : w;
-
-    long long slope = large / small;
-    if (large % small != 0) slope += 1;
-
-    return (large - slope) * small;
+    long long answer = (long long) w * h;
+    long long g = gcd(w, h);
+    long long l = w/g + h/g - 2 + 1;
+    answer -= l * g;
+    
+    return answer;
 }
